@@ -24,7 +24,7 @@ public:
 
 void BST::insert(int data){
     // 1. 동일한 data 값을 가진 노드가 있는지 탐색한다. -> 있으면 실패 반환
-    Node* parPos = root;
+    Node* parPos =2 root;
     Node* temp = this->find(data, parPos);
     if(temp != NULL){
         cout << data + "값을 가진 노드가 이미 있습니다.\n";
