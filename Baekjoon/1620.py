@@ -8,11 +8,7 @@ for i in range(cnt):
     value = input()
     dogam[i+1] = value
 
-# print(dogam)
-
 valueList = list(dogam.values()) # 키들만 따로 리스트를 만들어, 추후 키값 추출이 가능하게 한다.
-# print("keyList의 타입은!" + str(type(keyList)))
-# print(valueList)
 result = ""
 
 #3. 숫자를 입력 받으면 -> 밸류값을 / 문자열을 입력 받으면 -> 키값을 출력한다.
@@ -26,6 +22,7 @@ for i in range(problem):
 
 print(result)
 
+## 시간 초과가 어디서 발생하는 건지..?
 
 
 ### 딕셔너리 요소 추가 : dogam[키] = '밸류'
