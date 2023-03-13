@@ -1,34 +1,42 @@
+#1. 사용자로부터 N과 M을 입력 받아 변수에 저장한다.
+n, m = map(int, input().split(' '))
+dogam = []
+answer = ""
 
-#1. 입력 받은 값을 cnt(도감 내 갯수), problem(풀어야 하는 문제 갯수)에 담는다.
-cnt, problem = map(int, input().split(' '))
-dogam = {}
+#2. N번 만큼 돌면서, 포켓몬의 이름을 입력 받아 각 포켓몬을 딕셔너리 형태로 리스트에 저장한다.
+for i in range(1, n + 1):
+    pocketmon = input()
 
-#2. cnt만큼 돌면서 입력받을 때마다 (숫자, 입력값) 튜플 형태로 딕셔너리에 넣는다.
-for i in range(cnt):
-    value = input()
-    dogam[i+1] = value
+    # (조건) 포켓몬의 이름은 2~20자 + 첫 글자 혹은 마지막 글자만 대문자를 제한으로 한다.
+    if len(pocketmon) < 2 or len(pocketmon) > 20:
+        print("이름 다시 입력!\n")
+        i -= 1
+        continue
+    elif not pocketmon[1:len(pocketmon)-2].islower():
+        print("이름 다시 입력!\n")
+        i -= 1
+        continue
 
-valueList = list(dogam.values()) # 키들만 따로 리스트를 만들어, 추후 키값 추출이 가능하게 한다.
-result = ""
+    dogam.append({'num': i, 'name':pocketmon})
 
-#3. 숫자를 입력 받으면 -> 밸류값을 / 문자열을 입력 받으면 -> 키값을 출력한다.
-for i in range(problem):
-    find = input()
+#3. M번 만큼 돌면서, 문제를 입력 받고, 해당 문제의 결과를 찾아 리스트로 저장한다.
+for i in range(m):
+    qna = input()
+    # 알파벳 입력 받으면 -> 번호
+    if(ord(qna[0:1]) >= 65 and ord(qna[0:1]) <= 122):
+        # 해당 포켓몬의 번호를 찾아서
+        # index = dogam.index({'name':qna})
+        ret = next((item for item in dogam if item['name'] == qna), None)
+        # answer에 넣는다.
+        answer += f"{ret['num']}\n"
 
-    if ord(find[0:1]) >= 65 and ord(find[0:1]) < 97: #문자열일 때
-        result += f"\n{valueList.index(find)+1}"
-    else: # 숫자일 때
-        result += f"\n{dogam.get(int(find))}"
-
-print(result)
-
-## 시간 초과가 어디서 발생하는 건지..?
-
-
-### 딕셔너리 요소 추가 : dogam[키] = '밸류'
-### 딕셔너리 밸류 찾기 : dogam.get(키)
-### 파이썬 특정 요소의 인덱스 추출 : .index(요소)
-### 파이썬 앞글자만 가져오기 : string[start:end]
-### map() -> 리스트의 요소를 한 번에 처리할 때(주로 형변환) 사용하는 함수
-### 파이썬 형변환 : int형으로 -> ord() / str 형으로 -> str()
-
+    # 숫자를 입력 받으면 -> 이름
+    else:
+        # 해당 포켓몬의 이름을 찾아서
+        # index = dogam.index({'num':int(qna)})
+        ret = next((item for item in dogam if item['num'] == int(qna)), None)
+        # answer에 넣는다.
+        answer += f"{ret['name']}\n"
+    
+#4. answer을 한 번에 출력한다.
+print(answer)
